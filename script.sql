@@ -1,10 +1,11 @@
 
+DROP TABLE IF EXISTS FImportacoes;
+DROP TABLE IF EXISTS FPrecos;
 DROP TABLE IF EXISTS DData;
 DROP TABLE IF EXISTS DProduto;
 DROP TABLE IF EXISTS DUF;
 DROP TABLE IF EXISTS DPais;
-DROP TABLE IF EXISTS FImportacoes;
-DROP TABLE IF EXISTS FPrecos;
+
 CREATE TABLE DData (
     dataPK int,
     mes int,
@@ -42,7 +43,7 @@ CREATE TABLE DPais (
 CREATE TABLE FImportacoes (
     id int,
     dataPK int,
-    produtoPK varchar(255),
+    produtoPK int,
     paisPK int,
     UFPK int,
     valorFOB float,
@@ -57,10 +58,10 @@ CREATE TABLE FImportacoes (
 CREATE TABLE FPrecos (
     id int,
     dataPK int,
-    produtoPK varchar(255),
+    produtoPK int,
     UFPK int,
     semana int,
-    precosMedios float
+    precosMedios float,
     desvioPadraoMedios float,
     precoMinimo float,
     PRIMARY KEY (id),
