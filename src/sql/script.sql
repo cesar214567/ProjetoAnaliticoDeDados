@@ -14,7 +14,6 @@ CREATE TABLE DData (
     semestre int,
     ano int,
     PRIMARY KEY (dataPK)
-
 );
   
 CREATE TABLE DProduto (
