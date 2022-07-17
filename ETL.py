@@ -10,9 +10,6 @@ gas_df = pd.read_csv(path.join(c.base_csv_data_path, c.natural_gas_filename), se
 derivados_df = pd.read_csv(path.join(c.base_csv_data_path, c.derived_imports_filename), sep=';')
 etanol_df = pd.read_csv(path.join(c.base_csv_data_path, c.ethanol_imports_filename), sep=';')
 precos_df = pd.read_csv(path.join(c.base_csv_data_path, c.prices_filename), sep='\t')
-# derivados_df = pd.read_csv('Arquivos\importacoes-exportacoes-derivados-2000-2022.csv', sep=';')
-# etanol_df = pd.read_csv('Arquivos\importacoes-exportacoes-etanol-2012-2022.csv', sep=';')
-# precos_df = pd.read_csv('Arquivos\preços-combustiveis-2004-2021.tsv', sep='\t')
 
 print('----> Extraindo dados OK!\n')
 
