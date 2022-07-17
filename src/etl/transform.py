@@ -1,6 +1,6 @@
 from src.etl.extract import Extractor
 import pandas as pd
-
+from data_generator import generate_year_month_map,map_year_month
 class Transformer:
   def __init__(self):
     extractor = Extractor()
@@ -10,7 +10,7 @@ class Transformer:
     self.etanol_df = extractor.get_etanol_df()
     self.precos_df = extractor.get_precos_df()
     self.importacoes_df = {}
-
+    self.produtos_df = None
   def __transform_gas__(self):
     # Remove dados de exportações e exclui a coluna de operação comercial
     self.gas_df.drop(self.gas_df[self.gas_df['OPERAÇÃO COMERCIAL'] == 'EXPORTAÇÃO'].index, inplace=True)
@@ -45,6 +45,22 @@ class Transformer:
     # Remove e corrige valores
     self.precos_df.replace(regex={'OLEO': 'ÓLEO'}, inplace=True)
 
+  def __transform__importacoes_dates(self):
+    ano_mes = zip(self.importacoes_df['ANO'],self.importacoes_df['MÊS'])
+    new_column = list(map(map_year_month,ano_mes))
+    self.importacoes_df = self.importacoes_df.assign(datapk=new_column)
+    
+    #TO DO: PROCESAR A DATA(CRIAR COLUNA MES E ANO), DUPLICAR OS DADOS ENTRE MESES
+  def __transform__precos_dates(self):
+    ano_mes = zip(self.precos_df['ANO'],self.precos_df['MÊS'])
+    new_column = list(map(map_year_month,ano_mes))
+    self.importacoes_df = self.importacoes_df.assign(datapk=new_column)
+    
+  #TO DO: AS DUAS TABELAS NAO TEM OS MESMOS PRODUTOS
+  def __filter_produtos_from_tables(self):
+    products_list = list(enumerate(self.importacoes_df['PRODUTO'].unique(),start=1))
+    self.produtos_df = pd.DataFrame(products_list, columns =['produtopk', 'name'])
+     
   def transform_data(self):
     print('----> Transformando dados\n')
 
@@ -57,7 +73,15 @@ class Transformer:
     self.importacoes_df = pd.concat(
       [self.gas_df, self.derivados_df, self.etanol_df]
     )
-
+    
+    #map year and month to DData Id
+    generate_year_month_map()
+    self.__transform__importacoes_dates()
+    #self.__transform__precos_dates()
+    
+    #create and map all produtos
+    self.__filter_produtos_from_tables()
+    
     print('----> Transformando dados OK!\n')
 
   def get_importacoes(self):
@@ -65,3 +89,6 @@ class Transformer:
 
   def get_precos(self):
     return self.precos_df
+  
+  def get_produtos(self):
+    return self.produtos_df
