@@ -21,6 +21,7 @@ class SparkDF:
                 url='jdbc:postgresql://localhost:5432/pad_constellation',
                 dbtable='fimportacoes',
                 user='postgres',
+                password='admin',
                 driver='org.postgresql.Driver') \
         .load()
 
@@ -29,6 +30,7 @@ class SparkDF:
                     url='jdbc:postgresql://localhost:5432/pad_constellation',
                     dbtable='fprecos',
                     user='postgres',
+                        password='admin',
                     driver='org.postgresql.Driver') \
             .load()
 
@@ -37,6 +39,7 @@ class SparkDF:
                     url='jdbc:postgresql://localhost:5432/pad_constellation',
                     dbtable='ddata',
                     user='postgres',
+                        password='admin',
                     driver='org.postgresql.Driver') \
             .load()
 
@@ -45,6 +48,7 @@ class SparkDF:
                     url='jdbc:postgresql://localhost:5432/pad_constellation',
                     dbtable='dproduto',
                     user='postgres',
+                        password='admin',
                     driver='org.postgresql.Driver') \
             .load()
 
@@ -53,6 +57,7 @@ class SparkDF:
                     url='jdbc:postgresql://localhost:5432/pad_constellation',
                     dbtable='duf',
                     user='postgres',
+                        password='admin',
                     driver='org.postgresql.Driver') \
             .load()
 
@@ -61,6 +66,7 @@ class SparkDF:
                     url='jdbc:postgresql://localhost:5432/pad_constellation',
                     dbtable='dpais',
                     user='postgres',
+                    password='admin',
                     driver='org.postgresql.Driver') \
             .load()
 

@@ -6,3 +6,7 @@ if __name__ == "__main__":
   transformer.transform_data()
 
   testing_spark_session()
+  print(transformer.get_importacoes())
+  print(transformer.get_precos())
+  print(transformer.get_produtos())
+  
