@@ -1,17 +1,24 @@
 import pandas as pd
+from os import path
+import constants as c
 
 # * Extract
 
-print('Extraindo dados\n')
+print('----> Extraindo dados\n')
 
-gas_df = pd.read_csv('Arquivos\importacao-gas-natural-2000-2022.csv', sep=';')
-derivados_df = pd.read_csv('Arquivos\importacoes-exportacoes-derivados-2000-2022.csv', sep=';')
-etanol_df = pd.read_csv('Arquivos\importacoes-exportacoes-etanol-2012-2022.csv', sep=';')
-precos_df = pd.read_csv('Arquivos\preços-combustiveis-2004-2021.tsv', sep='\t')
+gas_df = pd.read_csv(path.join(c.base_csv_data_path, c.natural_gas_filename), sep=';')
+derivados_df = pd.read_csv(path.join(c.base_csv_data_path, c.derived_imports_filename), sep=';')
+etanol_df = pd.read_csv(path.join(c.base_csv_data_path, c.ethanol_imports_filename), sep=';')
+precos_df = pd.read_csv(path.join(c.base_csv_data_path, c.prices_filename), sep='\t')
+# derivados_df = pd.read_csv('Arquivos\importacoes-exportacoes-derivados-2000-2022.csv', sep=';')
+# etanol_df = pd.read_csv('Arquivos\importacoes-exportacoes-etanol-2012-2022.csv', sep=';')
+# precos_df = pd.read_csv('Arquivos\preços-combustiveis-2004-2021.tsv', sep='\t')
+
+print('----> Extraindo dados OK!\n')
 
 # * Transform
 
-print('Transformando dados')
+print('----> Transformando dados\n')
 
 # Remove dados de exportações e exclui a coluna de operação comercial
 gas_df.drop(gas_df[gas_df['OPERAÇÃO COMERCIAL'] == 'EXPORTAÇÃO'].index, inplace=True)
@@ -31,5 +38,7 @@ precos_df.replace(regex={'OLEO': 'ÓLEO'}, inplace=True)
 derivados_df.rename(columns={'IMPORTADO / EXPORTADO': 'IMPORTADO', 'DISPÊNDIO / RECEITA' : 'DISPÊNDIO'}, inplace=True)
 etanol_df.rename(columns={'IMPORTADO / EXPORTADO': 'IMPORTADO', 'DISPÊNDIO / RECEITA' : 'DISPÊNDIO'}, inplace=True)
 importacoes_df = pd.concat([gas_df, derivados_df, etanol_df])
+
+print('----> Transformando dados OK!\n')
 
 # * Load
