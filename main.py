@@ -7,6 +7,6 @@ if __name__ == "__main__":
 
   testing_spark_session()
   print(transformer.get_importacoes())
-  print(transformer.get_precos())
+  print(transformer.get_precos().columns)
   print(transformer.get_produtos())
   
