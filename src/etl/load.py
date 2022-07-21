@@ -1,6 +1,7 @@
+from os import path
 import psycopg2
-import pandas as pd
-import csv
+
+from src.utils.constants import base_csv_data_path
 
 class Loader:
     
@@ -31,7 +32,11 @@ class Loader:
             tabelas = ['ddata','dproduto','duf','dpais','fimportacoes','fprecos']
             for tabela in tabelas:
                 self.__printSep__(tabela)
-                self.__loadTable__(connection, cursor, tabela + '.csv', tabela,',')
+                self.__loadTable__( \
+                    connection,
+                    cursor,
+                    path.join(base_csv_data_path, tabela + '.csv'), tabela, ','
+            )
 
 
             self.__printSep__('FINISHED')

@@ -1,28 +1,28 @@
-ufpk,nome
-1,mato grosso do sul
-2,rio grande do sul
-3,mato grosso
-4,ceara
-5,acre
-6,alagoas
-7,rio de janeiro
-8,parana
-9,amazonas
-10,santa catarina
-11,sergipe
-12,distrito federal
-13,sao paulo
-14,espirito santo
-15,maranhao
-16,amapa
-17,bahia
-18,goias
-19,piaui
-20,roraima
-21,rondonia
-22,minas gerais
-23,para
-24,rio grande do norte
-25,pernambuco
-26,tocantins
-27,paraiba
+ufpk,nome,sigla,regiao
+1,tocantins,TO,Norte
+2,pernambuco,PE,Nordeste
+3,santa catarina,SC,Sul
+4,minas gerais,MG,Sudeste
+5,amapa,AP,Norte
+6,paraiba,PB,Nordeste
+7,para,PA,Norte
+8,goias,GO,Centro-Oeste
+9,maranhao,MA,Nordeste
+10,bahia,BA,Nordeste
+11,amazonas,AM,Norte
+12,alagoas,AL,Nordeste
+13,piaui,PI,Nordeste
+14,ceara,CE,Nordeste
+15,rio grande do sul,RS,Sul
+16,roraima,RR,Norte
+17,mato grosso do sul,MS,Centro-Oeste
+18,mato grosso,MT,Centro-Oeste
+19,rondonia,RO,Norte
+20,distrito federal,DF,Centro-Oeste
+21,sao paulo,SP,Sudeste
+22,parana,PR,Sul
+23,rio de janeiro,RJ,Sudeste
+24,rio grande do norte,RN,Nordeste
+25,acre,AC,Norte
+26,sergipe,SE,Nordeste
+27,espirito santo,ES,Sudeste

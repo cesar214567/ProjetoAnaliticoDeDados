@@ -2,8 +2,9 @@ from tabnanny import check
 from src.etl.extract import Extractor
 import pandas as pd
 from os import path
-from data_generator import generate_year_month_map, map_year_month, write_data, map_year_month_number
+from data_generator import generate_year_month_map, write_data, map_year_month_number
 from src.utils.constants import base_csv_data_path, gen_ddata_filename, derivados_to_exclude
+from src.utils.regions import get_uf_acronym, get_uf_region
 from datetime import datetime
 import time
 import calendar
@@ -179,7 +180,12 @@ class Transformer:
     uf_list = set(uf_list)
     uf_list = list(enumerate(uf_list, start=1))
     self.uf_df = pd.DataFrame(uf_list, columns =['ufpk', 'nome'])
-    
+
+    self.uf_df['sigla'] = \
+      self.uf_df.apply(lambda row : get_uf_acronym(row), axis = 1)
+    self.uf_df['regiao'] = \
+      self.uf_df.apply(lambda row : get_uf_region(row), axis = 1)
+
   def map_produto(self, produto):
     return int(self.produtos_df[self.produtos_df['nome']==produto]['produtopk'])
   
