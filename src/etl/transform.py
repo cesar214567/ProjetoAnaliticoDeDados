@@ -247,7 +247,8 @@ class Transformer:
     self.generate_products_csv()
     self.generate_countries_csv()
     self.generate_uf_csv()
-
+    self.generate_precos_csv()
+    self.generate_importacoes_csv()
     print('----> Transformando dados OK!\n')
 
   def get_importacoes(self):
@@ -273,3 +274,9 @@ class Transformer:
   
   def generate_uf_csv(self):
     self.uf_df.to_csv("Arquivos/duf.csv",index = False)
+
+  def generate_precos_csv(self):
+    self.precos_df.to_csv("Arquivos/fprecos.csv",index = False)
+
+  def generate_importacoes_csv(self):
+    self.importacoes_df.to_csv("Arquivos/fimportacoes.csv",index = False)
