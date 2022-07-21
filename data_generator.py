@@ -13,7 +13,7 @@ months_dict = {
                10:'OUT',
                11:'NOV',
                12:'DEZ',
-               }
+}
 
 hash = {}
 
@@ -27,7 +27,13 @@ def generate_year_month_map():
 
 def map_year_month(tuple_year_month):
     global hash
-    return hash[(tuple_year_month[0],months_dict[tuple_year_month[1]])]
+    
+    return hash[(tuple_year_month[0], tuple_year_month[1])]
+
+def map_year_month_number(tuple_year_month):
+    global hash
+    
+    return hash[(tuple_year_month[0], months_dict[tuple_year_month[1]])]
 
 def write_data(arquivo):
     datapk = 1
@@ -39,6 +45,3 @@ def write_data(arquivo):
                 writer.writerow([datapk,month,months_dict[month],ceil(month/3),ceil(month/6),year])
                 hash[(year,months_dict[month])] = datapk
                 datapk += 1
-
-
-#write_data('./Arquivos/ddata.csv')

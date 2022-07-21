@@ -4,11 +4,11 @@ from src.etl.load import Loader
 
 if __name__ == "__main__":
   transformer = Transformer()
-  loader = Loader()
+  # loader = Loader()
   transformer.transform_data()
 
   print(transformer.get_importacoes())
-  print(transformer.get_precos().columns)
+  print(transformer.get_precos())
   print(transformer.get_produtos())
 
   loader.loadTables()
@@ -19,4 +19,5 @@ if __name__ == "__main__":
   sparkDF.get_query_average_prices_roll_up().show()
   sparkDF.get_query_imports_semester_slice().show()
   sparkDF.get_query_country_imports_pivot().show()
+  sparkDF.get_query_prices_imports_drill_across().show()
   

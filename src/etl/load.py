@@ -4,14 +4,14 @@ import csv
 
 class Loader:
     
-    def __loadTable__(connection,cursor, fileName, tableName,sep=';'):
+    def __loadTable__(self, connection,cursor, fileName, tableName,sep=';'):
         with open(fileName, 'r') as file:
             cursor.copy_from(file, tableName, sep,null='')
         connection.commit()
         print("Table " + tableName + " inserted successfully")
 
 
-    def __printSep__(text):
+    def __printSep__(self, text):
         print("-------------------------------------------------------------------")
         print("-------------------------------------------------------------------")
         print("                           " + text)
@@ -31,7 +31,7 @@ class Loader:
             tabelas = ['ddata','dproduto','duf','dpais','fimportacoes','fprecos']
             for tabela in tabelas:
                 self.__printSep__(tabela)
-                self.__loadTable__(connection, cursor,tabela + '.csv', tabela,',')
+                self.__loadTable__(connection, cursor, tabela + '.csv', tabela,',')
 
 
             self.__printSep__('FINISHED')

@@ -1,10 +1,11 @@
 base_csv_data_path = 'Arquivos/'
 drivers_path = 'drivers/'
 
-natural_gas_filename = 'importacao-gas-natural-2000-2022.csv'
-derived_imports_filename = 'importacoes-exportacoes-derivados-2000-2022.csv'
-ethanol_imports_filename = 'importacoes-exportacoes-etanol-2012-2022.csv'
-prices_filename = 'preços-combustiveis-2004-2021.tsv'
+prices_filename = 'precos-combustiveis-2004-2021.tsv'
+importacoes_filename = 'importacoes-ncm.csv'
+historical_usd_brl = 'USD_BRL Historical Data.csv'
+
+gen_ddata_filename = 'ddata.csv'
 
 pgsql_driver_filename = 'postgresql-42.4.0.jar'
 
@@ -75,3 +76,50 @@ group by
 	dp.nome,
 	dd.mes) tmp
 """
+
+query_prices_imports_drill_across = """
+(select
+	dp.nome,
+	dd.mes_nome,
+	dd.ano,
+	fp.sumprecosmedios,
+	fi.fivalorfob
+from
+	(
+		select
+			fp.produtopk,
+			dd.datapk,
+			sum(fp.precosmedios) as sumprecosmedios
+		from
+			fprecos fp,
+			ddata dd
+		where
+			fp.datapk = dd.datapk
+		group by
+			produtopk,
+			dd.datapk
+	) fp,
+	(
+	select
+		fi.produtopk,
+		dd.datapk,
+		sum(fi.valorfob) as fivalorfob
+	from
+		fimportacoes fi,
+		ddata dd
+	where
+		dd.datapk = fi.id
+	group by 
+		fi.produtopk,
+		dd.datapk
+	) fi,
+	ddata dd,
+	dproduto dp
+where
+	fp.produtopk = fi.produtopk and
+	fp.produtopk = dp.produtopk and
+	dd.mes = fp.datapk and
+	fp.datapk = fi.datapk) tmp
+"""
+
+derivados_to_exclude = ['ASFALTO', 'COQUE', 'GASOLINA DE AVIAÇÃO', 'LUBRIFICANTE', 'NAFTA', 'OUTROS NÃO ENERGÉTICOS', 'PARAFINA', 'QUEROSENE DE AVIAÇÃO', 'QUEROSENE ILUMINANTE', 'SOLVENTE', 'ÓLEO COMBUSTÍVEL']
