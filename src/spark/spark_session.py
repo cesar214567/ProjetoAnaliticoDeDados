@@ -37,7 +37,8 @@ class SparkDF:
       properties = { \
         "user": "postgres",
         "password": "postgres",
-        "driver": "org.postgresql.Driver"
+        "driver": "org.postgresql.Driver",
+        "password":"admin"
       }
     )
 
@@ -50,7 +51,8 @@ class SparkDF:
       properties = { \
         "user": "postgres",
         "password": "postgres",
-        "driver": "org.postgresql.Driver"
+        "driver": "org.postgresql.Driver",
+        "password":"admin"
       }
     )
 
@@ -63,7 +65,8 @@ class SparkDF:
       properties = { \
         "user": "postgres",
         "password": "postgres",
-        "driver": "org.postgresql.Driver"
+        "driver": "org.postgresql.Driver",
+        "password":"admin"
       }
     )
 
@@ -76,7 +79,8 @@ class SparkDF:
       properties = { \
         "user": "postgres",
         "password": "postgres",
-        "driver": "org.postgresql.Driver"
+        "driver": "org.postgresql.Driver",
+        "password":"admin"
       }
     )
 
@@ -89,7 +93,8 @@ class SparkDF:
       properties = { \
         "user": "postgres",
         "password": "postgres",
-        "driver": "org.postgresql.Driver"
+        "driver": "org.postgresql.Driver",
+        "password":"admin"
       }
     )
 
