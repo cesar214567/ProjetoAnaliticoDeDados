@@ -5,13 +5,14 @@ from src.etl.load import Loader
 if __name__ == "__main__":
   transformer = Transformer()
   loader = Loader()
-  transformer.transform_data()
+  #transformer.transform_data()
 
-  # print(transformer.get_importacoes())
-  # print(transformer.get_precos())
-  # print(transformer.get_produtos())
-  # print(transformer.get_uf())
-
+  #print(transformer.get_importacoes())
+  #print(transformer.get_precos())
+  #print(transformer.get_produtos())
+  #print(transformer.get_uf())
+  #print(transformer.get_countries())
+  
   loader.loadTables()
 
   # sparkDF = SparkDF()

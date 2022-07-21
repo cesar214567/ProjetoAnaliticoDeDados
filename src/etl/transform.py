@@ -125,10 +125,8 @@ class Transformer:
     duplicated_dataframe = self.precos_df[rows_to_change]
     duplicated_dataframe['DATA INICIAL'] = duplicated_dataframe.apply(self.check_times_duplicated,axis = 1)
     self.precos_df['DATA FINAL'] = self.precos_df.apply(self.check_times_not_duplicated,axis = 1)
-    print("rows: ",self.precos_df.shape[0])
     self.precos_df = pd.concat([self.precos_df,duplicated_dataframe])
-    print("rows: ",self.precos_df.shape[0])
-    
+    self.precos_df['id'] = range(1,len(self.precos_df)+1)
     #getting year, months and week
     years_list = pd.to_datetime(self.precos_df['DATA FINAL']).dt.year
     month_list = pd.to_datetime(self.precos_df['DATA FINAL']).dt.month
@@ -221,6 +219,12 @@ class Transformer:
     new_column = list(map(self.map_uf, uf_list))
     self.precos_df = self.precos_df.assign(ufpk = new_column)
 
+  def __get_importacoes_columns__(self):
+    self.importacoes_df = self.importacoes_df[['datapk','produtopk','paispk','ufpk','VALOR FOB','VOLUME']]
+
+  def __get_precos_columns__(self):
+    self.precos_df = self.precos_df[['id','datapk','produtopk','ufpk','semana','PREÇO MÉDIO REVENDA','DESVIO PADRÃO REVENDA','PREÇO MÍNIMO REVENDA']]
+
   def transform_data(self):
     print('----> Transformando dados\n')
 
@@ -247,7 +251,11 @@ class Transformer:
     
     self.__transform_importacoes_uf__()
     self.__transform_precos_uf__()
-    
+  
+    #reordering columns
+    self.__get_importacoes_columns__()
+    self.__get_precos_columns__()
+
     # csv's
     self.generate_date_csv()
     self.generate_products_csv()
@@ -269,20 +277,23 @@ class Transformer:
   def get_uf(self):
     return self.uf_df
 
+  def get_countries(self):
+    return self.countries_df
+
   def generate_date_csv(self):
     write_data(path.join(base_csv_data_path, gen_ddata_filename))
     
   def generate_products_csv(self):
-    self.produtos_df.to_csv("Arquivos/dproduto.csv",index = False)
+    self.produtos_df.to_csv("Arquivos/dproduto.csv",index = False,header=False,sep=';')
   
   def generate_countries_csv(self):
-    self.countries_df.to_csv("Arquivos/dpais.csv",index = False)
+    self.countries_df.to_csv("Arquivos/dpais.csv",index = False,header=False,sep=';')
   
   def generate_uf_csv(self):
-    self.uf_df.to_csv("Arquivos/duf.csv",index = False)
+    self.uf_df.to_csv("Arquivos/duf.csv",index = False,header=False,sep=';')
 
   def generate_precos_csv(self):
-    self.precos_df.to_csv("Arquivos/fprecos.csv",index = False)
+    self.precos_df.to_csv("Arquivos/fprecos.csv",index = False,header=False,sep=';')
 
   def generate_importacoes_csv(self):
-    self.importacoes_df.to_csv("Arquivos/fimportacoes.csv",index = False)
+    self.importacoes_df.to_csv("Arquivos/fimportacoes.csv",index = True,header=False,sep=';')

@@ -30,12 +30,14 @@ class Loader:
             
             cursor = connection.cursor()
             tabelas = ['ddata','dproduto','duf','dpais','fimportacoes','fprecos']
+            for tabela in reversed(tabelas):
+                cursor.execute("delete from {}".format(tabela))
             for tabela in tabelas:
                 self.__printSep__(tabela)
                 self.__loadTable__( \
                     connection,
                     cursor,
-                    path.join(base_csv_data_path, tabela + '.csv'), tabela, ','
+                    path.join(base_csv_data_path, tabela + '.csv'), tabela, ';'
             )
 
 

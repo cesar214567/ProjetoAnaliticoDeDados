@@ -38,8 +38,8 @@ def map_year_month_number(tuple_year_month):
 def write_data(arquivo):
     datapk = 1
     with open(arquivo,'w') as file:
-        writer = csv.writer(file)
-        writer.writerow(['datapk','mes','mes_nome','trimestre','semestre','ano'])
+        writer = csv.writer(file,delimiter=";")
+        #writer.writerow(['datapk','mes','mes_nome','trimestre','semestre','ano'])
         for year in range(2000,2023): 
             for month in range(1,13):
                 writer.writerow([datapk,month,months_dict[month],ceil(month/3),ceil(month/6),year])
