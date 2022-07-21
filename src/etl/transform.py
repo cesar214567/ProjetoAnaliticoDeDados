@@ -3,7 +3,7 @@ from src.etl.extract import Extractor
 import pandas as pd
 from os import path
 from data_generator import generate_year_month_map, write_data, map_year_month_number
-from src.utils.constants import base_csv_data_path, gen_ddata_filename, derivados_to_exclude
+from src.utils.constants import base_csv_data_path, gen_ddata_filename, derivados_to_exclude, dollar_real_price
 from src.utils.regions import get_uf_acronym, get_uf_region
 from datetime import datetime
 import time
@@ -41,7 +41,7 @@ class Transformer:
 
   def __transform_importacoes__(self):
     # Remove e corrige valores
-    self.importacoes_df.drop(columns = 'Código NCM')
+    self.importacoes_df.drop(columns = ['Código NCM'])
     self.importacoes_df.replace({'Gasóleo (óleo diesel)': 'ÓLEO DIESEL'}, inplace=True)
     self.importacoes_df.replace({'Gás liquefeito de petróleo (glp)': 'GLP'}, inplace=True)
     self.importacoes_df.replace({'Álcool etílico não desnaturado, com volume de teor alcoólico >= 80%': 'ETANOL HIDRATADO'}, inplace=True)
@@ -49,6 +49,9 @@ class Transformer:
 
     # Renomeia colunas    
     self.importacoes_df.rename(columns={'Ano': 'ANO', 'Mês': 'MES', 'Países': 'PAIS', 'UF do Produto': 'UF', 'Descrição NCM': 'PRODUTO', 'Valor FOB (US$)': 'VALOR FOB', 'Quantidade Estatística': 'VOLUME'}, inplace=True)
+
+    self.importacoes_df["VALOR FOB"] = self.importacoes_df["VALOR FOB"].apply(lambda x: x * dollar_real_price)
+
 
   def delete_column_from_dataframe(self,dataframe, columns):
     dataframe.drop(columns = columns,inplace = True)          
