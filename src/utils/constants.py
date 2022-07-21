@@ -4,6 +4,7 @@ drivers_path = 'drivers/'
 prices_filename = 'precos-combustiveis-2004-2021.tsv'
 importacoes_filename = 'importacoes-ncm.csv'
 historical_usd_brl = 'USD_BRL Historical Data.csv'
+dollar_real_price = 5.5
 
 gen_ddata_filename = 'ddata.csv'
 

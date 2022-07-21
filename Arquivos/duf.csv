@@ -1,28 +1,28 @@
 ufpk,nome,sigla,regiao
-1,tocantins,TO,Norte
-2,pernambuco,PE,Nordeste
-3,santa catarina,SC,Sul
-4,minas gerais,MG,Sudeste
+1,bahia,BA,Nordeste
+2,sao paulo,SP,Sudeste
+3,tocantins,TO,Norte
+4,maranhao,MA,Nordeste
 5,amapa,AP,Norte
-6,paraiba,PB,Nordeste
-7,para,PA,Norte
-8,goias,GO,Centro-Oeste
-9,maranhao,MA,Nordeste
-10,bahia,BA,Nordeste
-11,amazonas,AM,Norte
-12,alagoas,AL,Nordeste
-13,piaui,PI,Nordeste
-14,ceara,CE,Nordeste
-15,rio grande do sul,RS,Sul
-16,roraima,RR,Norte
-17,mato grosso do sul,MS,Centro-Oeste
-18,mato grosso,MT,Centro-Oeste
-19,rondonia,RO,Norte
-20,distrito federal,DF,Centro-Oeste
-21,sao paulo,SP,Sudeste
-22,parana,PR,Sul
-23,rio de janeiro,RJ,Sudeste
-24,rio grande do norte,RN,Nordeste
-25,acre,AC,Norte
-26,sergipe,SE,Nordeste
-27,espirito santo,ES,Sudeste
+6,piaui,PI,Nordeste
+7,goias,GO,Centro-Oeste
+8,alagoas,AL,Nordeste
+9,roraima,RR,Norte
+10,santa catarina,SC,Sul
+11,acre,AC,Norte
+12,sergipe,SE,Nordeste
+13,espirito santo,ES,Sudeste
+14,mato grosso do sul,MS,Centro-Oeste
+15,mato grosso,MT,Centro-Oeste
+16,minas gerais,MG,Sudeste
+17,ceara,CE,Nordeste
+18,amazonas,AM,Norte
+19,rio grande do norte,RN,Nordeste
+20,parana,PR,Sul
+21,distrito federal,DF,Centro-Oeste
+22,paraiba,PB,Nordeste
+23,rio grande do sul,RS,Sul
+24,para,PA,Norte
+25,pernambuco,PE,Nordeste
+26,rio de janeiro,RJ,Sudeste
+27,rondonia,RO,Norte
