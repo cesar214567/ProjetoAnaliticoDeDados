@@ -10,6 +10,7 @@ if __name__ == "__main__":
   print(transformer.get_importacoes())
   print(transformer.get_precos())
   print(transformer.get_produtos())
+  print(transformer.get_uf())
 
   loader.loadTables()
 
