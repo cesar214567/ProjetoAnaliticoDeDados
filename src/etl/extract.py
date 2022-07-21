@@ -14,7 +14,7 @@ class Extractor:
 
     self.etanol_df = pd \
       .read_csv(path.join(c.base_csv_data_path, c.ethanol_imports_filename), sep=';')
-      
+
     self.precos_df = pd \
       .read_csv(path.join(c.base_csv_data_path, c.prices_filename), sep='\t')
 

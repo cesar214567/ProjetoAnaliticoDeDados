@@ -2,7 +2,15 @@ import findspark
 from pyspark.sql import SparkSession
 from os import path
 
-from src.utils.constants import drivers_path, pgsql_driver_filename
+from sqlalchemy import table
+
+from src.utils.constants import \
+  drivers_path,\
+  pgsql_driver_filename, \
+  query_volume_import_roll_up, \
+  query_average_prices_roll_up, \
+  query_imports_semester_slice, \
+  query_country_imports_pivot \
 
 class SparkDF:
   def __init__(self):
@@ -16,81 +24,59 @@ class SparkDF:
           .config("spark.jars", path.join(drivers_path, pgsql_driver_filename)) \
           .getOrCreate()
 
-    self.imports_df = self.spark.read.format("jdbc") \
-        .options(
-                url='jdbc:postgresql://localhost:5432/pad_constellation',
-                dbtable='fimportacoes',
-                user='postgres',
-                password='admin',
-                driver='org.postgresql.Driver') \
-        .load()
-
-    self.prices_df = self.spark.read.format("jdbc") \
-            .options(
-                    url='jdbc:postgresql://localhost:5432/pad_constellation',
-                    dbtable='fprecos',
-                    user='postgres',
-                        password='admin',
-                    driver='org.postgresql.Driver') \
-            .load()
-
-    self.date_df = self.spark.read.format("jdbc") \
-            .options(
-                    url='jdbc:postgresql://localhost:5432/pad_constellation',
-                    dbtable='ddata',
-                    user='postgres',
-                        password='admin',
-                    driver='org.postgresql.Driver') \
-            .load()
-
-    self.products_df = self.spark.read.format("jdbc") \
-            .options(
-                    url='jdbc:postgresql://localhost:5432/pad_constellation',
-                    dbtable='dproduto',
-                    user='postgres',
-                        password='admin',
-                    driver='org.postgresql.Driver') \
-            .load()
-
-    self.state_df = self.spark.read.format("jdbc") \
-            .options(
-                    url='jdbc:postgresql://localhost:5432/pad_constellation',
-                    dbtable='duf',
-                    user='postgres',
-                        password='admin',
-                    driver='org.postgresql.Driver') \
-            .load()
-
-    self.country_df = self.spark.read.format("jdbc") \
-            .options(
-                    url='jdbc:postgresql://localhost:5432/pad_constellation',
-                    dbtable='dpais',
-                    user='postgres',
-                    password='admin',
-                    driver='org.postgresql.Driver') \
-            .load()
-
-    print('----> [SPARK] Obtendo as tabelas via PostgreSQL OK!\n')
-
     print('----> [SPARK] Iniciando sessão OK!\n')
 
   def get_session(self):
     return self.spark
 
-  def get_imports_df(self):
-    return self.imports_df
+  def get_query_volume_import_roll_up(self):
+    volume_import_roll_up_df = self.spark.read.jdbc( \
+      url = 'jdbc:postgresql://localhost:5432/pad_constellation',
+      table = query_volume_import_roll_up,
+      properties = { \
+        "user": "postgres",
+        "password": "postgres",
+        "driver": "org.postgresql.Driver"
+      }
+    )
 
-  def get_prices_df(self):
-    return self.prices_df
+    return volume_import_roll_up_df
 
-  def get_date_df(self):
-    return self.date_df
+  def get_query_average_prices_roll_up(self):
+    average_prices_roll_up_df = self.spark.read.jdbc( \
+      url = 'jdbc:postgresql://localhost:5432/pad_constellation',
+      table = query_average_prices_roll_up,
+      properties = { \
+        "user": "postgres",
+        "password": "postgres",
+        "driver": "org.postgresql.Driver"
+      }
+    )
 
-  def get_products_df(self):
-    return self.products_df
+    return average_prices_roll_up_df
 
-  def get_state_df(self):
-    return self.state_df
+  def get_query_imports_semester_slice(self):
+    query_imports_semester_slice_df = self.spark.read.jdbc( \
+      url = 'jdbc:postgresql://localhost:5432/pad_constellation',
+      table = query_imports_semester_slice,
+      properties = { \
+        "user": "postgres",
+        "password": "postgres",
+        "driver": "org.postgresql.Driver"
+      }
+    )
 
-  def get_country_df(self):
-    return self.country_df
+    return query_imports_semester_slice_df
+
+  def get_query_country_imports_pivot(self):
+    query_country_imports_pivot_df = self.spark.read.jdbc( \
+      url = 'jdbc:postgresql://localhost:5432/pad_constellation',
+      table = query_country_imports_pivot,
+      properties = { \
+        "user": "postgres",
+        "password": "postgres",
+        "driver": "org.postgresql.Driver"
+      }
+    )
+
+    return query_country_imports_pivot_df
