@@ -11,10 +11,10 @@ pgsql_driver_filename = 'postgresql-42.4.0.jar'
 
 query_volume_import_roll_up = """
 (select
-  dp.nome,
-  dd.mes_nome,
-  dd.ano,
-  sum(fi.quantidadeEstatistica)
+  dp.nome as "Produto / Combustível",
+  dd.mes_nome as "Mês",
+  dd.ano as "Ano",
+  sum(fi.quantidadeEstatistica) as "Volume (m3)"
 from
   DProduto dp,
   DData dd,
@@ -27,17 +27,18 @@ group by
   dd.mes,
   dd.mes_nome,
   dd.ano
- order by
- 	dd.ano,
- 	dd.mes) tmp
+order by
+ 	dd.ano asc,
+ 	dd.mes asc
+) tmp
 """
 
 query_average_prices_roll_up = """
 (select
-	dp.nome,
-	dd.mes_nome,
-	dd.ano,
-	avg(fp.precosMedios) 
+	dp.nome as "Produto / Combustível",
+	dd.mes_nome as "Mês",
+	dd.ano as "Ano",
+	avg(fp.precosMedios) as "Preços (R$)" 
 from
 	fprecos fp,
 	dproduto dp,
@@ -51,16 +52,16 @@ group by
 	dd.mes_nome,
 	dd.ano
 order by 
-	dd.ano,
-	dd.mes) tmp
+	dd.ano asc,
+	dd.mes asc) tmp
 """
 
 query_imports_semester_slice = """
 (select 
-	dp.nome,
-	dd.mes_nome,
-	dd.ano,
-	sum(fi.valorFOB) 
+	dp.nome as "Produto / Combustível",
+	dd.mes_nome as "Mês",
+	dd.ano as "Ano",
+	sum(fi.valorFOB) as "Valor FOB (R$)" 
 from
 	fimportacoes fi,
 	ddata dd,
@@ -76,16 +77,16 @@ group by
 	dd.mes_nome,
 	dd.ano
 order by 
-	dd.ano,
-	dd.mes) tmp
+	dd.ano asc,
+	dd.mes asc) tmp
 """
 
 query_country_imports_pivot = """
 (select
-	dp.nome,
-	dd.mes_nome,
-	dd.ano,
-	sum(fi.valorFOB)
+	dp.nome as "País",
+	dd.mes_nome as "Mês",
+	dd.ano as "Ano",
+	sum(fi.valorFOB) as "Valor FOB (R$)"
 from
 	fimportacoes fi,
 	dpais dp,
@@ -99,17 +100,17 @@ group by
 	dd.mes_nome,
 	dd.ano
 order by 
-	dd.ano,
-	dd.mes) tmp
+	dd.ano asc,
+	dd.mes asc) tmp
 """
 
 query_prices_imports_drill_across = """
 (select
-	dp.nome,
-	dd.mes_nome,
-	dd.ano,
-	fp.avgprecosmedios,
-	fi.fivalorfob
+	dp.nome as "Produto / Combustível",
+	dd.mes_nome as "Mês",
+	dd.ano as "Ano",
+	fp.avgprecosmedios as "Preço Médio (R$)",
+	fi.fivalorfob as "Valor FOB (R$)"
 from
 	(
 		select
@@ -147,8 +148,8 @@ where
 	dd.datapk  = fp.datapk and
 	fp.datapk = fi.datapk
 order by 
-	dd.ano,
-	dd.mes) tmp
+	dd.ano asc,
+	dd.mes asc) tmp
 """
 
 derivados_to_exclude = ['ASFALTO', 'COQUE', 'GASOLINA DE AVIAÇÃO', 'LUBRIFICANTE', 'NAFTA', 'OUTROS NÃO ENERGÉTICOS', 'PARAFINA', 'QUEROSENE DE AVIAÇÃO', 'QUEROSENE ILUMINANTE', 'SOLVENTE', 'ÓLEO COMBUSTÍVEL']
