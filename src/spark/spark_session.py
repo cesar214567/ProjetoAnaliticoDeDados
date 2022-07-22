@@ -10,7 +10,8 @@ from src.utils.constants import \
   query_volume_import_roll_up, \
   query_average_prices_roll_up, \
   query_imports_semester_slice, \
-  query_country_imports_pivot \
+  query_country_imports_pivot, \
+  query_prices_imports_drill_across
 
 class SparkDF:
   def __init__(self):
@@ -36,7 +37,8 @@ class SparkDF:
       properties = { \
         "user": "postgres",
         "password": "postgres",
-        "driver": "org.postgresql.Driver"
+        "driver": "org.postgresql.Driver",
+        "password":"admin"
       }
     )
 
@@ -49,7 +51,8 @@ class SparkDF:
       properties = { \
         "user": "postgres",
         "password": "postgres",
-        "driver": "org.postgresql.Driver"
+        "driver": "org.postgresql.Driver",
+        "password":"admin"
       }
     )
 
@@ -62,7 +65,8 @@ class SparkDF:
       properties = { \
         "user": "postgres",
         "password": "postgres",
-        "driver": "org.postgresql.Driver"
+        "driver": "org.postgresql.Driver",
+        "password":"admin"
       }
     )
 
@@ -75,8 +79,23 @@ class SparkDF:
       properties = { \
         "user": "postgres",
         "password": "postgres",
-        "driver": "org.postgresql.Driver"
+        "driver": "org.postgresql.Driver",
+        "password":"admin"
       }
     )
 
     return query_country_imports_pivot_df
+
+  def get_query_prices_imports_drill_across(self):
+    query_prices_imports_drill_across_df = self.spark.read.jdbc( \
+      url = 'jdbc:postgresql://localhost:5432/pad_constellation',
+      table = query_prices_imports_drill_across,
+      properties = { \
+        "user": "postgres",
+        "password": "postgres",
+        "driver": "org.postgresql.Driver",
+        "password":"admin"
+      }
+    )
+
+    return query_prices_imports_drill_across_df
