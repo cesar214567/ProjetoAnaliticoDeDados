@@ -35,7 +35,6 @@ class Transformer:
     extractor = Extractor()
 
     self.precos_df = extractor.get_precos_df()
-    self.usd_brl_df = extractor.get_usd_brl_df()
     self.importacoes_df = extractor.get_importacoes_df()
     self.produtos_df = None
 

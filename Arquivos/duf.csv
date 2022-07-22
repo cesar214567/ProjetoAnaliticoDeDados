@@ -1,27 +1,27 @@
-1;ceara;CE;Nordeste
-2;santa catarina;SC;Sul
-3;rio de janeiro;RJ;Sudeste
-4;parana;PR;Sul
-5;rio grande do norte;RN;Nordeste
-6;distrito federal;DF;Centro-Oeste
-7;maranhao;MA;Nordeste
-8;espirito santo;ES;Sudeste
-9;minas gerais;MG;Sudeste
-10;sao paulo;SP;Sudeste
-11;rondonia;RO;Norte
-12;bahia;BA;Nordeste
-13;acre;AC;Norte
-14;rio grande do sul;RS;Sul
-15;amapa;AP;Norte
+1;amapa;AP;Norte
+2;para;PA;Norte
+3;goias;GO;Centro-Oeste
+4;distrito federal;DF;Centro-Oeste
+5;rio grande do sul;RS;Sul
+6;alagoas;AL;Nordeste
+7;amazonas;AM;Norte
+8;bahia;BA;Nordeste
+9;paraiba;PB;Nordeste
+10;tocantins;TO;Norte
+11;roraima;RR;Norte
+12;minas gerais;MG;Sudeste
+13;piaui;PI;Nordeste
+14;parana;PR;Sul
+15;mato grosso do sul;MS;Centro-Oeste
 16;sergipe;SE;Nordeste
-17;para;PA;Norte
-18;pernambuco;PE;Nordeste
-19;mato grosso;MT;Centro-Oeste
-20;goias;GO;Centro-Oeste
-21;paraiba;PB;Nordeste
-22;tocantins;TO;Norte
-23;mato grosso do sul;MS;Centro-Oeste
-24;piaui;PI;Nordeste
-25;alagoas;AL;Nordeste
-26;roraima;RR;Norte
-27;amazonas;AM;Norte
+17;acre;AC;Norte
+18;maranhao;MA;Nordeste
+19;rio de janeiro;RJ;Sudeste
+20;pernambuco;PE;Nordeste
+21;rio grande do norte;RN;Nordeste
+22;ceara;CE;Nordeste
+23;sao paulo;SP;Sudeste
+24;mato grosso;MT;Centro-Oeste
+25;rondonia;RO;Norte
+26;santa catarina;SC;Sul
+27;espirito santo;ES;Sudeste

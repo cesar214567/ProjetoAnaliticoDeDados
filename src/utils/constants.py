@@ -3,7 +3,6 @@ drivers_path = 'drivers/'
 
 prices_filename = 'precos-combustiveis-2004-2021.tsv'
 importacoes_filename = 'importacoes-ncm.csv'
-historical_usd_brl = 'USD_BRL Historical Data.csv'
 dollar_real_price = 5.5
 
 gen_ddata_filename = 'ddata.csv'
@@ -14,6 +13,7 @@ query_volume_import_roll_up = """
 (select
   dp.nome,
   dd.mes_nome,
+  dd.ano,
   sum(fi.quantidadeEstatistica)
 from
   DProduto dp,
@@ -24,13 +24,19 @@ where
   fi.datapk = dd.datapk
 group by
   dp.nome,
-  dd.mes_nome) tmp
+  dd.mes,
+  dd.mes_nome,
+  dd.ano
+ order by
+ 	dd.ano,
+ 	dd.mes) tmp
 """
 
 query_average_prices_roll_up = """
 (select
 	dp.nome,
-	dd.mes,
+	dd.mes_nome,
+	dd.ano,
 	avg(fp.precosMedios) 
 from
 	fprecos fp,
@@ -41,30 +47,44 @@ where
 	fp.datapk = dd.datapk
 group by
 	dp.nome,
+	dd.mes,
+	dd.mes_nome,
+	dd.ano
+order by 
+	dd.ano,
 	dd.mes) tmp
 """
 
 query_imports_semester_slice = """
 (select 
 	dp.nome,
-	dd.mes,
+	dd.mes_nome,
+	dd.ano,
 	sum(fi.valorFOB) 
 from
 	fimportacoes fi,
 	ddata dd,
 	dproduto dp
 where
-	dd.semestre = 1
-	AND dd.ano = 2020
+	fi.datapk = dd.datapk and
+	fi.produtopk = dp.produtopk AND
+	dd.semestre = 1 AND
+	dd.ano = 2020
 group by
 	dp.nome,
+	dd.mes,
+	dd.mes_nome,
+	dd.ano
+order by 
+	dd.ano,
 	dd.mes) tmp
 """
 
 query_country_imports_pivot = """
 (select
 	dp.nome,
-	dd.mes,
+	dd.mes_nome,
+	dd.ano,
 	sum(fi.valorFOB)
 from
 	fimportacoes fi,
@@ -75,6 +95,11 @@ where
 	fi.datapk = dd.datapk
 group by
 	dp.nome,
+	dd.mes,
+	dd.mes_nome,
+	dd.ano
+order by 
+	dd.ano,
 	dd.mes) tmp
 """
 
@@ -83,14 +108,14 @@ query_prices_imports_drill_across = """
 	dp.nome,
 	dd.mes_nome,
 	dd.ano,
-	fp.sumprecosmedios,
+	fp.avgprecosmedios,
 	fi.fivalorfob
 from
 	(
 		select
 			fp.produtopk,
 			dd.datapk,
-			sum(fp.precosmedios) as sumprecosmedios
+			avg(fp.precosmedios) as avgprecosmedios
 		from
 			fprecos fp,
 			ddata dd
@@ -109,7 +134,7 @@ from
 		fimportacoes fi,
 		ddata dd
 	where
-		dd.datapk = fi.id
+		dd.datapk = fi.datapk
 	group by 
 		fi.produtopk,
 		dd.datapk
@@ -119,8 +144,11 @@ from
 where
 	fp.produtopk = fi.produtopk and
 	fp.produtopk = dp.produtopk and
-	dd.mes = fp.datapk and
-	fp.datapk = fi.datapk) tmp
+	dd.datapk  = fp.datapk and
+	fp.datapk = fi.datapk
+order by 
+	dd.ano,
+	dd.mes) tmp
 """
 
 derivados_to_exclude = ['ASFALTO', 'COQUE', 'GASOLINA DE AVIAÇÃO', 'LUBRIFICANTE', 'NAFTA', 'OUTROS NÃO ENERGÉTICOS', 'PARAFINA', 'QUEROSENE DE AVIAÇÃO', 'QUEROSENE ILUMINANTE', 'SOLVENTE', 'ÓLEO COMBUSTÍVEL']
